@@ -13,6 +13,7 @@
 		D025CA041E714F7500BA0EC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D025CA021E714F7500BA0EC7 /* Main.storyboard */; };
 		D025CA061E714F7500BA0EC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D025CA051E714F7500BA0EC7 /* Assets.xcassets */; };
 		D025CA091E714F7500BA0EC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D025CA071E714F7500BA0EC7 /* LaunchScreen.storyboard */; };
+		D025CA121E714F8E00BA0EC7 /* LWLProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = D025CA111E714F8E00BA0EC7 /* LWLProgressView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,9 @@
 		D025CA051E714F7500BA0EC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D025CA081E714F7500BA0EC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D025CA0A1E714F7500BA0EC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D025CA101E714F8E00BA0EC7 /* LWLProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWLProgressView.h; sourceTree = "<group>"; };
+		D025CA111E714F8E00BA0EC7 /* LWLProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LWLProgressView.m; sourceTree = "<group>"; };
+		D025CA141E7150CC00BA0EC7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +48,7 @@
 			children = (
 				D025C9F81E714F7500BA0EC7 /* LWLProgressAnimation */,
 				D025C9F71E714F7500BA0EC7 /* Products */,
+				D025CA131E7150CC00BA0EC7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,6 +67,8 @@
 				D025C9FD1E714F7500BA0EC7 /* AppDelegate.m */,
 				D025C9FF1E714F7500BA0EC7 /* ViewController.h */,
 				D025CA001E714F7500BA0EC7 /* ViewController.m */,
+				D025CA101E714F8E00BA0EC7 /* LWLProgressView.h */,
+				D025CA111E714F8E00BA0EC7 /* LWLProgressView.m */,
 				D025CA021E714F7500BA0EC7 /* Main.storyboard */,
 				D025CA051E714F7500BA0EC7 /* Assets.xcassets */,
 				D025CA071E714F7500BA0EC7 /* LaunchScreen.storyboard */,
@@ -77,6 +84,14 @@
 				D025C9FA1E714F7500BA0EC7 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D025CA131E7150CC00BA0EC7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D025CA141E7150CC00BA0EC7 /* QuartzCore.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,6 +169,7 @@
 				D025CA011E714F7500BA0EC7 /* ViewController.m in Sources */,
 				D025C9FE1E714F7500BA0EC7 /* AppDelegate.m in Sources */,
 				D025C9FB1E714F7500BA0EC7 /* main.m in Sources */,
+				D025CA121E714F8E00BA0EC7 /* LWLProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

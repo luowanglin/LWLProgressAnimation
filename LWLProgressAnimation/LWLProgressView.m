@@ -13,6 +13,15 @@
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
 
 @implementation LWLProgressView
+{
+    int progress_count;
+    CADisplayLink *play_link;
+}
+
+-(void)setTipText:(NSString *)tipText{
+    _tipText = tipText;
+    [self setNeedsDisplay];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
@@ -25,17 +34,16 @@
     return self;
 }
 
-// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
     // Drawing code
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
     if (_isNorma) {
-      CGContextSetRGBStrokeColor(context, 0.35,0.69,0.96,1.0);
+        CGContextSetRGBStrokeColor(context, 0.22,0.36,0.81,1.0);//0.35,0.69,0.96(默认颜色)
     }else{
-      CGContextSetRGBStrokeColor(context, 0.96,0.77,0.44,1.0);
+        CGContextSetRGBStrokeColor(context, 0.96,0.77,0.44,1.0);
     }
-   
+    
     CGContextSetLineWidth(context, 2.0);
     CGContextAddArc(context, WIDTH/2, HEIGHT/2, 70, 0, 2*PI, 0);
     CGContextStrokePath(context);
@@ -60,8 +68,88 @@
     
 }
 
+//执行处理
+- (void)stopProgressHandlerWithStatu:(int)statu andCode:(int)code timeout:(void(^)(int flag))timeOut{
+    
+    if (code <= 0 || statu < 0) {
+        [play_link invalidate];
+        play_link = nil;
+        self.isNorma = NO;
+        self.progessValue = @0;
+        self.tipText = @"执行超时";
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setNeedsDisplay];
+        });
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3ull *NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            self.hidden = YES;
+        });
+        //        progressCount = 0;
+        timeOut(0);
+        return;
+    }
+    
+}
+
+//MARK:Animation Display Action
+- (void)start{
+    self.hidden = NO;
+    progress_count = 1;
+    self.isNorma = YES;
+    self.tipText = @"开始执行";
+    play_link = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkAnimation)];
+    [play_link addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
+//MARK:Animation stop
+- (void)stop:(BOOL)isNormal callBack:(void(^)(void))finish{
+    [play_link invalidate];
+    play_link = nil;
+    self.isNorma = isNormal;
+    if (isNormal) {
+        self.progessValue = @360;
+        self.tipText = @"完成执行";
+    }else{
+        self.progessValue = @0;
+        self.tipText = @"执行中断";
+    }
+    finish();//progressCount = 0;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNeedsDisplay];
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2ull *NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        self.hidden = YES;
+    });
+}
+
+//MARK:动画NSLinkLayer动画计时器(10秒)
+- (void)displayLinkAnimation{
+    if (progress_count > 180.f && progress_count < 220.f) {
+        progress_count += 0.8;
+    }else if(progress_count > 220.f && progress_count < 270.f){
+        progress_count += 0.6;
+    }else if(progress_count > 270.f && progress_count < 320.f){
+        progress_count += 0.3;
+    }else if(progress_count > 320.f && progress_count < 345.f){
+        progress_count += 0.1;
+    }else if(progress_count > 345.f){
+        [play_link invalidate];
+        play_link = nil;
+        progress_count = 1;
+        return;
+    }else{
+        progress_count += 1;
+    }
+    self.progessValue = [NSNumber numberWithFloat:progress_count];
+    __weak typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf setNeedsDisplay];
+    });
+    
+}
 
 @end
+
 
 
 

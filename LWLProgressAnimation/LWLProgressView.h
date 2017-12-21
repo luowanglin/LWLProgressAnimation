@@ -22,6 +22,20 @@
 /*
  *@param progessValue -->using to refresh animation status
  */
-@property NSNumber *progessValue;
+@property (strong,nonatomic) NSNumber *progessValue;
+
+/*
+ *Start time recoder
+ */
+- (void)start;
+
+/*Animation stop*/
+- (void)stop:(BOOL)isNormal callBack:(void(^)(void))finish;
+
+/*
+ *Excption teminal handle
+ */
+- (void)stopProgressHandlerWithStatu:(int)statu andCode:(int)code timeout:(void(^)(int flag))timeOut;
 
 @end
+
